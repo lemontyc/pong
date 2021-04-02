@@ -1,4 +1,9 @@
 
+/**
+ * Pong (Server) 
+ * by Luis Montoya
+ */
+
 import processing.net.*;
 
 boolean useServer = true;
@@ -11,7 +16,7 @@ Paddle rightPaddle;
 Server s;
 Client c;
 String input;
-int data[];
+String data[];
 
 
 
@@ -43,7 +48,8 @@ void draw(){
         if (c != null) {
             input = c.readString();
             input = input.substring(0, input.indexOf("\n")); // Only up to the newline
-            print(input, "\n");
+            data = split(input, ' '); // Split values into an array
+            movePaddles();
         }
     }
     leftPaddle.update();
@@ -77,6 +83,29 @@ void detectCollision(){
     }
 }
 
+void movePaddles(){
+    if(data[0].equals("0")){
+        if(data[1].equals("u")){
+            leftPaddle.moveUp();
+        }
+        if(data[1].equals("d")){
+            leftPaddle.moveDown();
+        }
+        if(data[1].equals("s")){
+            leftPaddle.stop();
+        }
+    }else{
+        if(data[1].equals("u")){
+            rightPaddle.moveUp();
+        }
+        if(data[1].equals("d")){
+            rightPaddle.moveDown();
+        }
+        if(data[1].equals("s")){
+            rightPaddle.stop();
+        }
+    }
+}
 void keyPressed(){
     if(!useServer){
         if(keyCode == UP){
