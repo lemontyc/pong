@@ -58,6 +58,12 @@ void draw(){
     detectCollision();
 }
 
+
+void resetPaddles(){
+    leftPaddle.resetPaddle();
+    rightPaddle.resetPaddle();
+}
+
 void detectCollision(){
     // Left Paddle
     if(ball.x - ball.radius  < leftPaddle.x + leftPaddle.paddleWidth){
@@ -66,8 +72,7 @@ void detectCollision(){
         }else{
             rightPaddle.increaseScore();
             ball.reset();
-            leftPaddle.resetPaddle();
-            rightPaddle.resetPaddle();
+            resetPaddles();
         }
     }
     // Right Paddle
@@ -77,8 +82,7 @@ void detectCollision(){
         }else{
             leftPaddle.increaseScore();
             ball.reset();
-            leftPaddle.resetPaddle();
-            rightPaddle.resetPaddle();
+            resetPaddles();
         }
     }
 }
