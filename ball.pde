@@ -2,7 +2,7 @@ class Ball{
     int x;
     int y;
     int radius = 10;
-    int speedX = 2;
+    int speedX = 5;
     int speedY = speedX;
   
     Ball(int x, int y){
