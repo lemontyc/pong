@@ -2,18 +2,31 @@ Ball ball;
 Paddle leftPaddle;
 Paddle rightPaddle;
 
+
 void setup(){
- size(800, 600);
- ball = new Ball(10, 10);
- leftPaddle = new Paddle(10,0, color(255, 0, 0)); 
- rightPaddle = new Paddle(width - 20, 0, color(255, 0, 0));
+  size(800, 600);
+  ball = new Ball(10, 10);
+  leftPaddle = new Paddle(10,0, color(255, 0, 0), true); 
+  rightPaddle = new Paddle(width - 20, 0, color(255, 0, 0), false);
+  
+}
+
+void dottedLine(float x1, float y1, float x2, float y2, float steps){
+ for(int i=0; i<=steps; i++) {
+   float x = lerp(x1, x2, i/steps);
+   float y = lerp(y1, y2, i/steps);
+   noStroke();
+   fill(255);
+   rect(x, y, 2, 4);
+ }
 }
 
 void draw(){
- background(0);
- ball.update();
- leftPaddle.update();
- rightPaddle.update();
+    background(0);
+    dottedLine(width / 2, 0, width / 2, height, 50);
+    ball.update();
+    leftPaddle.update();
+    rightPaddle.update();
 }
 
 void keyPressed(){
