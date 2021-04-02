@@ -4,21 +4,20 @@ Paddle rightPaddle;
 
 
 void setup(){
-  size(800, 600);
-  ball = new Ball(10, 10);
-  leftPaddle = new Paddle(10,0, color(255, 0, 0), true); 
-  rightPaddle = new Paddle(width - 20, 0, color(255, 0, 0), false);
-  
+    size(800, 600);
+    ball = new Ball(10, 10);
+    leftPaddle = new Paddle(10,0, color(255, 0, 0), true); 
+    rightPaddle = new Paddle(width - 20, 0, color(255, 0, 0), false);
 }
 
 void dottedLine(float x1, float y1, float x2, float y2, float steps){
- for(int i=0; i<=steps; i++) {
-   float x = lerp(x1, x2, i/steps);
-   float y = lerp(y1, y2, i/steps);
-   noStroke();
-   fill(255);
-   rect(x, y, 2, 4);
- }
+    for(int i=0; i<=steps; i++) {
+        float x = lerp(x1, x2, i/steps);
+        float y = lerp(y1, y2, i/steps);
+        noStroke();
+        fill(255);
+        rect(x, y, 2, 4);
+    }
 }
 
 void draw(){
@@ -30,30 +29,29 @@ void draw(){
 }
 
 void keyPressed(){
-   if(keyCode == UP){
-    rightPaddle.moveUp();
-  }
+    if(keyCode == UP){
+        rightPaddle.moveUp();
+    }
+    
+    if(keyCode == DOWN){
+        rightPaddle.moveDown();
+    }
+    
+    if(key == 'q'){
+        leftPaddle.moveUp();
+    }
   
-  if(keyCode == DOWN){
-    rightPaddle.moveDown();
-  }
-  
-  if(key == 'q'){
-    leftPaddle.moveUp();
-  }
-  
-  if(key == 'a'){
-    leftPaddle.moveDown();
-  }
-  
+    if(key == 'a'){
+        leftPaddle.moveDown();
+    }
 }
 
 void keyReleased(){
-   if(keyCode == UP || keyCode == DOWN){
-     rightPaddle.stop();
-   }
+    if(keyCode == UP || keyCode == DOWN){
+        rightPaddle.stop();
+    }
    
-      if(key == 'q' || key == 'a'){
-     leftPaddle.stop();
-   }
+    if(key == 'q' || key == 'a'){
+        leftPaddle.stop();
+    }
  }
