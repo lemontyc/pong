@@ -13,7 +13,6 @@ char dataOld;
 // 1: Right
 int clientID = 0;  
 
-
 void setup() 
 {
     size(450, 255);
@@ -31,44 +30,19 @@ void draw()
     }
 
     dataOld = data;
-    
-    
-
-  // // Receive data from server
-  // if (c.available() > 0) {
-  //   input = c.readString();
-  //   input = input.substring(0, input.indexOf("\n")); // Only up to the newline
-  //   data = int(split(input, ' ')); // Split values into an array
-  //   // Draw line using received coords
-  //   stroke(0);
-  //   line(data[0], data[1], data[2], data[3]);
-  // }
 }
 
 void keyPressed(){
-    // if(keyCode == UP){
-    //     data = 'u';
-    // }
-    
-    // if(keyCode == DOWN){
-    //     data = 'd';
-    // }
-    
-    if(key == 'q'){
+    if(key == 'q' || keyCode == UP){
         data = 'u';
     }
-
-    if(key == 'a'){
+    if(key == 'a' || keyCode == DOWN){
         data = 'd';
     }
 }
 
 void keyReleased(){
-    // if(keyCode == UP || keyCode == DOWN){
-    //     data = 'r';
-    // }
-
-    if(key == 'q' || key == 'a'){
+    if(key == 'q' || key == 'a' || keyCode == UP || keyCode == DOWN){
         data = 's';
     }
 }
