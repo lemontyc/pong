@@ -2,8 +2,8 @@ class Ball{
     int x;
     int y;
     int radius = 10;
-    int speedX = 5;
-    int speedY = 5;
+    int speedX = 2;
+    int speedY = speedX;
   
     Ball(int x, int y){
         this.x = x;
@@ -26,5 +26,15 @@ class Ball{
         if(y + radius > height || y - radius < 0 ){
             speedY = -speedY; 
         }
+    }
+
+    void bounce(){
+        speedX = -speedX; 
+    }
+
+    void reset(){
+        x = width / 2;
+        y = height /2;
+        bounce();
     }
 }
