@@ -4,12 +4,14 @@ class Paddle{
   int speedY;
   color paddleColor;
   int score = 0;
+  Ball ball
   boolean player;
   
-  Paddle(int x, int y, color paddleColor, boolean player){
+  Paddle(int x, int y, color paddleColor, Ball ball, boolean player){
     this.x = x;
     this.y = y;
     this.paddleColor = paddleColor;
+    this.ball = ball;
     this.player = player;
     PFont font = createFont("Squared.ttf", 60);
     textFont(font);
@@ -43,5 +45,9 @@ class Paddle{
   
   void stop(){
     speedY = 0;
+  }
+  
+  void increaseScore(){
+      score++;
   }
 }

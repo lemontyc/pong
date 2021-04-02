@@ -5,9 +5,10 @@ Paddle rightPaddle;
 
 void setup(){
     size(800, 600);
-    ball = new Ball(10, 10);
-    leftPaddle = new Paddle(10,0, color(255, 0, 0), true); 
-    rightPaddle = new Paddle(width - 20, 0, color(255, 0, 0), false);
+    ball        = new Ball(width / 2, height /2);
+    leftPaddle  = new Paddle(20,0, color(255, 0, 0), ball, true); 
+    rightPaddle = new Paddle(width - 30, 0, color(255, 0, 0), ball, false);
+    
 }
 
 void dottedLine(float x1, float y1, float x2, float y2, float steps){
@@ -23,9 +24,10 @@ void dottedLine(float x1, float y1, float x2, float y2, float steps){
 void draw(){
     background(0);
     dottedLine(width / 2, 0, width / 2, height, 50);
-    ball.update();
     leftPaddle.update();
     rightPaddle.update();
+    ball.update();
+    
 }
 
 void keyPressed(){
