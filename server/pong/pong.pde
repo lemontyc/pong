@@ -1,6 +1,18 @@
+
+import processing.net.*;
+
+boolean useServer = true;
+
 Ball ball;
 Paddle leftPaddle;
 Paddle rightPaddle;
+
+// Server stuff
+Server s;
+Client c;
+String input;
+int data[];
+
 
 
 void setup(){
@@ -8,6 +20,9 @@ void setup(){
     ball        = new Ball(width / 2, height /2);
     leftPaddle  = new Paddle(20, height /2, color(255, 0, 0), ball, true); 
     rightPaddle = new Paddle(width - 30, height /2, color(0, 0, 255), ball, false);
+    if(useServer){
+        s = new Server(this, 12345); // Start a simple server on a port
+    }
 }
 
 void dottedLine(float x1, float y1, float x2, float y2, float steps){
@@ -23,6 +38,14 @@ void dottedLine(float x1, float y1, float x2, float y2, float steps){
 void draw(){
     background(0);
     dottedLine(width / 2, 0, width / 2, height, 50);
+    if(useServer){
+        c = s.available();
+        if (c != null) {
+            input = c.readString();
+            input = input.substring(0, input.indexOf("\n")); // Only up to the newline
+            print(input, "\n");
+        }
+    }
     leftPaddle.update();
     rightPaddle.update();
     ball.update();
@@ -30,6 +53,7 @@ void draw(){
 }
 
 void detectCollision(){
+    // Left Paddle
     if(ball.x - ball.radius  < leftPaddle.x + leftPaddle.paddleWidth){
         if(ball.y > leftPaddle.y && ball.y < leftPaddle.y + leftPaddle.paddleLength){
             ball.bounce();
@@ -40,6 +64,7 @@ void detectCollision(){
             rightPaddle.resetPaddle();
         }
     }
+    // Right Paddle
     if(ball.x + ball.radius  > rightPaddle.x){
         if(ball.y > rightPaddle.y && ball.y < rightPaddle.y + rightPaddle.paddleLength){
             ball.bounce();
@@ -50,33 +75,36 @@ void detectCollision(){
             rightPaddle.resetPaddle();
         }
     }
-
 }
 
 void keyPressed(){
-    if(keyCode == UP){
-        rightPaddle.moveUp();
-    }
+    if(!useServer){
+        if(keyCode == UP){
+            rightPaddle.moveUp();
+        }
+        
+        if(keyCode == DOWN){
+            rightPaddle.moveDown();
+        }
+        
+        if(key == 'q'){
+            leftPaddle.moveUp();
+        }
     
-    if(keyCode == DOWN){
-        rightPaddle.moveDown();
-    }
-    
-    if(key == 'q'){
-        leftPaddle.moveUp();
-    }
-  
-    if(key == 'a'){
-        leftPaddle.moveDown();
+        if(key == 'a'){
+            leftPaddle.moveDown();
+        }
     }
 }
 
 void keyReleased(){
-    if(keyCode == UP || keyCode == DOWN){
-        rightPaddle.stop();
-    }
-   
-    if(key == 'q' || key == 'a'){
-        leftPaddle.stop();
+    if(!useServer){
+        if(keyCode == UP || keyCode == DOWN){
+            rightPaddle.stop();
+        }
+    
+        if(key == 'q' || key == 'a'){
+            leftPaddle.stop();
+        }
     }
  }
